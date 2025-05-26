@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication
 from gui.main_window import MainWindow
+from algorithms.backtracking import BacktrackingSolver
 
 def main():
     app = QApplication(sys.argv)

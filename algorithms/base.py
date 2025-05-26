@@ -7,13 +7,13 @@ class NQueenSolver(ABC):
     @abstractmethod
     def solve(self) -> List[Tuple[int, int]]:
         pass
-    def is_valid_solution(self, positions: List[Tuple[int, int]]) -> bool:
-        if len(positions) != self.board_size:
+    def is_valid_solution(self, queen_positions: List[Tuple[int, int]]) -> bool:
+        if len(queen_positions) != self.board_size:
             return False
-        for i in range(len(positions)):
-            for j in range(i + 1, len(positions)):
-                r1, c1 = positions[i]
-                r2, c2 = positions[j]
+        for i in range(len(queen_positions)):
+            for j in range(i + 1, len(queen_positions)):
+                r1, c1 = queen_positions[i]
+                r2, c2 = queen_positions[j]
                 if r1 == r2:
                     return False
                 if c1 == c2:
