@@ -6,6 +6,7 @@ from algorithms.genetic import GeneticSolver
 from algorithms.csp import CSPSolver
 
 def main():
+    print("Starting N-Queen Solver application...")
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
