@@ -12,15 +12,23 @@ class GeneticSolver(NQueenSolver):
     def _create_individual(self) -> List[int]:
         return random.sample(range(self.board_size), self.board_size)
     def _fitness(self, individual: List[int]) -> int:
-        score = 0
+        conflicts = 0
         for i in range(len(individual)):
             for j in range(i + 1, len(individual)):
-                if abs(individual[i] - individual[j]) != abs(i - j):
-                    score += 1
-        return score
+                if abs(individual[i] - individual[j]) == abs(i - j):
+                    conflicts += 1
+        return -conflicts
+
     def _crossover(self, parent1: List[int], parent2: List[int]) -> List[int]:
-        point = random.randint(0, self.board_size - 1)
-        child = parent1[:point] + parent2[point:]
+        start, end = sorted(random.sample(range(self.board_size), 2))
+        child = [None] * self.board_size
+        child[start:end] = parent1[start:end]
+        fill = [gene for gene in parent2 if gene not in child]
+        pointer = 0
+        for i in range(self.board_size):
+            if child[i] is None:
+                child[i] = fill[pointer]
+                pointer += 1
         return child
     def _mutate(self, individual: List[int]) -> List[int]:
         if random.random() < self.mutation_rate:

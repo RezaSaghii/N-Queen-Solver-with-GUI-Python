@@ -1,3 +1,4 @@
+import random
 from typing import List, Tuple
 from constraint import Problem, AllDifferentConstraint
 from .base import NQueenSolver
@@ -7,16 +8,22 @@ class CSPSolver(NQueenSolver):
         problem = Problem()
         variables = range(self.board_size)
         domain = range(self.board_size)
+
         for var in variables:
             problem.addVariable(var, domain)
+
         problem.addConstraint(AllDifferentConstraint())
+
         for i in range(self.board_size):
             for j in range(i + 1, self.board_size):
                 problem.addConstraint(
                     lambda x, y, i=i, j=j: abs(x - y) != abs(i - j),
                     (i, j)
                 )
-        solution = problem.getSolution()
-        if solution:
+
+        all_solutions = problem.getSolutions()
+        if all_solutions:
+            solution = random.choice(all_solutions)
             return [(i, solution[i]) for i in range(self.board_size)]
-        return [] 
+
+        return []

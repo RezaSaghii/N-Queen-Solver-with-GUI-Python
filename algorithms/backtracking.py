@@ -1,3 +1,4 @@
+import random
 from typing import List, Tuple
 from .base import NQueenSolver
 
@@ -17,7 +18,10 @@ class BacktrackingSolver(NQueenSolver):
             if row == self.board_size:
                 return True
                 
-            for col in range(self.board_size):
+            cols = list(range(self.board_size))
+            random.shuffle(cols)
+
+            for col in cols:
                 if is_safe(row, col, board):
                     board[row] = col
                     if solve_util(row + 1, board):
@@ -29,4 +33,4 @@ class BacktrackingSolver(NQueenSolver):
         
         if solve_util(0, board):
             return [(i, board[i]) for i in range(self.board_size)]
-        return [] 
+        return []
